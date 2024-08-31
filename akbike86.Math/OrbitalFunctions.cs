@@ -18,9 +18,12 @@ namespace akbike86.Math
         }
         public static double OrbitalPeriod(double distance, double primaryMass, double secondaryMass = 0)
         {
-            return OrbitalPeriod(distance, (primaryMass + secondaryMass) * OrbitConstants.G);
+            return OrbitalPeriod(distance, (primaryMass + secondaryMass) * Constants.G);
         }
 
         public static double OrbitalDistance(double period, double gravitationalParameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
