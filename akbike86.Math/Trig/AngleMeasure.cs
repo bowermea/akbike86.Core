@@ -12,6 +12,7 @@ namespace akbike86.Math.Trig
     /// <item><seealso cref="radian"/> (<see cref="rad">rad</see>)<br/>
     /// <list type="bullet">
     ///   <item><seealso cref="milliradian"/> (<see cref="mrad">mrad</see>)</item>
+    ///   <item><seealso cref="pi"/></item>
     /// </list></item>
     /// <item><seealso cref="degree"/> (<see cref="deg">deg</see>)
     /// <list type="bullet">
@@ -56,7 +57,10 @@ namespace akbike86.Math.Trig
         /// The measure of an angle in terms of π(pi) in radians with a decimal between 0 and 2.
         /// </summary>
         pi = 0b00010000,
-        deg = 1,
+        /// <summary>
+        /// Short name/symbol of <see cref="degree">degree</see>. <inheritdoc cref="degree"/>
+        /// </summary>
+        deg = degree,
         /// <summary>
         /// Unit of measure of an angle defined as one three-hundred-sixtieth (1/360) of a full <see cref="turn">turn</see>. Commonly notated as °.
         /// </summary>

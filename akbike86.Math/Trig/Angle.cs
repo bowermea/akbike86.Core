@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Numerics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using MathNet.Numerics;
-using M = MathNet.Numerics.Constants;
+//using MathNet.Numerics;
+//using M = MathNet.Numerics.Constants;
 using System.Reflection.Metadata;
 using System.Text.Json.Serialization;
 
@@ -22,6 +22,7 @@ namespace akbike86.Math.Trig
         //, IConvertible
         where TSelf : IAngle<TSelf>
     {
+        public double Turns { get; }
         public double Degrees { get; }
         public double Radians { get; }
         public double Gradians { get; }
@@ -46,8 +47,10 @@ namespace akbike86.Math.Trig
         public abstract static TSelf Gradian(double angle);
         public abstract static TSelf Angle(double angle, AngleMeasure type);
 
+        public abstract static double Reduce(double angle, AngleMeasure type);
         public abstract static double Convert(double angle, AngleMeasure source, AngleMeasure target);
     }
+
     public readonly partial struct Angle : IAngle<Angle>
     //,IAdditionOperators<Angle,Angle,Angle>
     //,IEqualityOperators<Angle,Angle,Angle>
@@ -57,6 +60,12 @@ namespace akbike86.Math.Trig
         /// </summary>
         private readonly double _angle;
 
+        [JsonIgnore]
+        public double Turns
+        {
+            get => _angle * 0.15915494309189533576888376337251d;
+            init { _angle = Reduce(value, AngleMeasure.turn); }
+        }
         /// <summary>
         /// Measure of the angle in radians between 0<small>(inclusive)</small> and 2π(exclusive)
         /// </summary>
@@ -75,6 +84,36 @@ namespace akbike86.Math.Trig
             //set => _angle = (value % 360) * 0.017453292519943295769236907684886127134428718885417d;
             init { _angle = DegreesToRadians(value); }
         }
+        [JsonIgnore]
+        public double Gradians
+        {
+            get => _angle * RadToGrad;
+            init { _angle = GradToRad; }
+        }
+
+        public double Gradians => throw new NotImplementedException();
+
+        public (ushort deg, double min) DegMin => throw new NotImplementedException();
+
+        public (ushort deg, byte min, double sec) DegMinSec => throw new NotImplementedException();
+
+        public (ushort deg, byte min, byte sec, uint nano) DegMinSecNano => throw new NotImplementedException();
+
+        public double AddDegree { set => throw new NotImplementedException(); }
+        public double AddRadian { set => throw new NotImplementedException(); }
+        public (ushort deg, byte min, byte sec, uint nano) AddDegMinSecNano { set => throw new NotImplementedException(); }
+
+        public double Sin => throw new NotImplementedException();
+
+        public double Cos => throw new NotImplementedException();
+
+        public double Tan => throw new NotImplementedException();
+
+        public double ArcSin => throw new NotImplementedException();
+
+        public double ArcCos => throw new NotImplementedException();
+
+        public double ArcTan => throw new NotImplementedException();
 
         #region instantiation
         public Angle() { _angle = double.NaN; }
@@ -133,6 +172,24 @@ namespace akbike86.Math.Trig
         #region comparison
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public readonly int CompareTo(Angle other) => _angle.CompareTo(other._angle);
+
+        public Angle Add(double angle, AngleMeasure type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Angle Diff(double angle, AngleMeasure type)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        static Angle IAngle<Angle>.Angle(double angle, AngleMeasure type)
+        {
+            throw new NotImplementedException();
+        }
+
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator <(Angle left, Angle right) => left.CompareTo(right) < 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -141,58 +198,10 @@ namespace akbike86.Math.Trig
         public static bool operator >(Angle left, Angle right) => left.CompareTo(right) > 0;
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator >=(Angle left, Angle right) => left.CompareTo(right) >= 0;
+
         #endregion
     }
 
-    public readonly partial struct Angle
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DegreesToRadians(double degrees) => ReduceDegrees(degrees) * M.Degree;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ReduceDegrees(double degrees)
-        {
-            // short circuit for 0/no angle
-            if (degrees == 0d) { return degrees; }
-            // ensure we have a valid finite angle
-            else if (Double.IsFinite(degrees))
-            {
-                // operations create imprecise results at lower decimal results, but since
-                // degrees range up to hundreds, only 13 decimals places can be reliably
-                if (degrees >= M.DegreeCircle) { return (degrees % M.DegreeCircle).Round(13); }
-                else if (degrees < 0d)
-                {
-                    if (degrees >= M.DegreeCircleNeg) { return (M.DegreeCircle + degrees).Round(13); }
-                    else { return (M.DegreeCircle - (System.Math.Abs(degrees) % M.DegreeCircle)).Round(13); }
-                } else { return degrees; }
-            }
-            // cannot reduce NaN and positive or negative infinity to a proper angle, simply return NaN
-            else { return double.NaN; }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double RadiansToDegress(double radians) => ReduceRadians(radians) * M.RadianToDeg;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ReduceRadians(double radians)
-        {
-            // short circuit for 0/no angle
-            if (radians == 0d) { return radians; }
-            // ensure we have a valid finite angle
-            else if (Double.IsFinite(radians))
-            {
-                if (radians >= M.RadianCircle) { return (radians % M.RadianCircle); }
-                else if (radians < 0d)
-                {
-                    if (radians >= M.RadianCircleNeg) { return (M.RadianCircle + radians); }
-                    else { return (M.RadianCircle - (System.Math.Abs(radians) % M.RadianCircle)); }
-                }
-                else { return radians; }
-            }
-            // cannot reduce NaN and positive or negative infinity to a proper angle, simply return NaN
-            else { return double.NaN; }
-        }
-    }
 
     public class AngleInt //AngleRad //: Angle : IAngle, IEquatable<Angle>, IComparable<Angle>
     {
