@@ -131,6 +131,7 @@ namespace akbike86.Math.Trig
                             case AngleMeasure.deg: return angle * DegTurn;
                             case AngleMeasure.arcminute: return angle * DegMinTurn;
                             case AngleMeasure.arcsecond: return angle * DegSecTurn;
+                            case AngleMeasure.milliarcsecond: return angle * DegMasTurn;
                             case AngleMeasure.grad: return angle * GradTurn;
                             case AngleMeasure.centminute: return angle * GradMinTurn;
                             case AngleMeasure.centsecond: return angle * GradSecTurn;
@@ -145,12 +146,13 @@ namespace akbike86.Math.Trig
                             case AngleMeasure.mrad: return angle * 1000d;
                             case AngleMeasure.pi: return angle * double.Pi;
                             case AngleMeasure.deg: return angle * RadToDeg;
-                            case AngleMeasure.arcminute: return angle * RadToDeg * 60d;
-                            case AngleMeasure.arcsecond: return angle * M.Rad2DegSec;
-                            case AngleMeasure.grad: return angle * M.Rad2Grad;
-                            case AngleMeasure.centminute: return angle * M.Rad2GradMin;
-                            case AngleMeasure.centsecond: return angle * M.Rad2GradSec;
-                            case AngleMeasure.sextant: return angle * M.Rad2Sextant;
+                            case AngleMeasure.arcminute: return angle * RadToDegMin;
+                            case AngleMeasure.arcsecond: return angle * RadToDegSec;
+                            case AngleMeasure.milliarcsecond: return angle * RadToDegMas;
+                            case AngleMeasure.grad: return angle * RadToGrad;
+                            case AngleMeasure.centminute: return angle * RadToGradMin;
+                            case AngleMeasure.centsecond: return angle * RadToGradSec;
+                            case AngleMeasure.sextant: return angle * RadToSextant;
                             default: throw new ArgumentOutOfRangeException(nameof(target), target, $"Cannot convert to angle measure to unknown type {target}.");
                         }
                     case AngleMeasure.mrad:
@@ -218,16 +220,45 @@ namespace akbike86.Math.Trig
 
         private const double Pi2           = double.Pi * 2d; // 6.283185307179586476925286766559d
         private const double Pi2Inv        = 1 / Pi2;        // 0.15915494309189533576888376337251d
-        private const double DegToRad      = double.Pi / 180.0d;  // 0.01745329251994329576923690768489d
-        private const double DegMinToRad   = DegToRad / 60.0d;    // 0.00029088820866572159615394846141477d
-        private const double DegSecToRad   = DegMinToRad / 60.0d; // 0.0000048481368110953599358991410235795d
-        private const double RadToDeg      = 180d / double.Pi;    // 57.295779513082320876798154814105
-        private const double RadToDegMin   = RadToDeg * 60.0d;    // 3437.7467707849392526078892888463
-        private const double RadToDegSec   = RadToDegMin * 60.0d; // 206264.80624709635515647335733078
-        private const double DegToGrad     = 10d / 9d; // 1.1111111111111111111111111111111d
+        private const double DegToRad      = double.Pi / 180.0d;    // 0.01745329251994329576923690768489d
+        private const double DegMinToRad   = DegToRad / 60.0d;      // 0.00029088820866572159615394846141477d
+        private const double DegSecToRad   = DegMinToRad / 60.0d;   // 4.8481368110953599358991410235795e-6
+        private const double DegMasToRad   = DegSecToRad / 1000.0d; // 4.8481368110953599358991410235795e-9
+        private const double RadToDeg      = 180d / double.Pi;      // 57.295779513082320876798154814105
+        private const double RadToDegMin   = RadToDeg * 60.0d;      // 3437.7467707849392526078892888463
+        private const double RadToDegSec   = RadToDegMin * 60.0d;   // 206264.80624709635515647335733078
+        private const double RadToDegMas   = RadToDegSec * 1000.0d; // 206264806.24709635515647335733078
+        private const double DegToGrad     = 10d / 9d;              // 1.1111111111111111111111111111111d
+        private const double DegMinToGrad  = DegToGrad / 60.0d;     // 0.01851851851851851851851851851852d
+        private const double DegSecToGrad  = DegMinToGrad / 60.0d;  // 3.0864197530864197530864197530864e-4
+        private const double DegMasToGrad  = DegSecToGrad / 1000.0d;// 3.0864197530864197530864197530864e-7
         private const double GradToDeg     = 0.9d;
-        private const double GradToRad     = double.Pi / 200.0d; // 0.0157079632679489661923132169164d
-        private const double RadToGrad     = 200.0d / double.Pi; // 63.661977236758134307553505349006d
+        private const double GradToDegMin  = GradToDeg * 60.0d;     // 54d
+        private const double GradToDegSec  = GradToDegMin * 60.0d;  // 3240d
+        private const double GradToDegMas  = GradToDegSec * 1000.0d;// 3240000d
+        private const double DegToGradMin    = DegToGrad * 100;           // 111.11111111111111111111111111111d
+        private const double DegMinToGradMin = DegToGradMin / 60.0d;      // 1.8518518518518518518518518518519d
+        private const double DegSecToGradMin = DegMinToGradMin / 60.0d;   // 0.030864197530864197530864197530864d
+        private const double DegMasToGradMin = DegSecToGradMin / 1000.0d; // 0.000030864197530864197530864197530864d
+        private const double GradMinToDeg    = GradToDeg / 100d;          // 0.009
+        private const double GradMinToDegMin = GradMinToDeg * 60.0d;      // 0.54d
+        private const double GradMinToDegSec = GradMinToDegMin * 60.0d;   // 32.4d 
+        private const double GradMinToDegMas = GradMinToDegMin * 1000.0d; // 32400d
+        private const double DegToGradSec    = DegToGradMin * 100;        // 11111.111111111111111111111111111d
+        private const double DegMinToGradSec = DegToGradSec / 60.0d;      // 185.18518518518518518518518518519d
+        private const double DegSecToGradSec = DegMinToGradSec / 60.0d;   // 3.0864197530864197530864197530864
+        private const double DegMasToGradSec = DegSecToGradSec / 1000.0d; // 0.00308641975308641975308641975309
+        private const double GradSecToDeg    = GradMinToDeg / 100d;       // 0.00009d
+        private const double GradSecToDegMin = GradSecToDeg * 60.0d;      // 0.0054d
+        private const double GradSecToDegSec = GradSecToDegMin * 60.0d;   // 0.324d
+        private const double GradSecToDegMas = GradSecToDegMin * 1000.0d; // 324d
+
+        private const double GradToRad     = double.Pi / 200.0d;    // 0.0157079632679489661923132169164d
+        private const double GradMinToRad  = GradToRad / 100.0d;    // 0.00015707963267948966192313216916398d
+        private const double GradSecToRad  = GradMinToRad / 100.0d; // 0.0000015707963267948966192313216916398d
+        private const double RadToGrad     = 200.0d / double.Pi;    // 63.661977236758134307553505349006d
+        private const double RadToGradMin  = RadToGrad * 100.0d;    // 6366.1977236758134307553505349006d
+        private const double RadToGradSec  = RadToGradMin * 100.0d; // 636619.77236758134307553505349006d
 
         private const int    TurnDigits    = 15;
         private const double RadTurn       = Pi2;            // 6.283185307179586476925286766559d
