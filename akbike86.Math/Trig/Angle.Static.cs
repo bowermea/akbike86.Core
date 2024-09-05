@@ -40,13 +40,13 @@ namespace akbike86.Math.Trig
                 switch (type)
                 {
                     case AngleMeasure.turn:
-                        return Reduce(angle, 1d, -1d).Round(15);
+                        return Reduce(angle, 1d, -1d).Round(TurnDigits);
                     case AngleMeasure.rad:
-                        return Reduce(angle, RadTurn, RadTurnNeg).Round(15);
+                        return Reduce(angle, RadTurn, RadTurnNeg).Round(RadDigits);
                     case AngleMeasure.mrad:
-                        return Reduce(angle, MRadTurn, MRadTurnNeg).Round(12);
+                        return Reduce(angle, MRadTurn, MRadTurnNeg).Round(MRadDigits);
                     case AngleMeasure.pi:
-                        return Reduce(angle, PiTurn, PiTurnNeg).Round(15);
+                        return Reduce(angle, PiTurn, PiTurnNeg).Round(PIDigits);
                     case AngleMeasure.deg:
                         return Reduce(angle, DegTurn, DegTurnNeg).Round(13);
                     case AngleMeasure.arcminute:
@@ -229,20 +229,25 @@ namespace akbike86.Math.Trig
         private const double GradToRad     = double.Pi / 200.0d; // 0.0157079632679489661923132169164d
         private const double RadToGrad     = 200.0d / double.Pi; // 63.661977236758134307553505349006d
 
-        private const double TurnDigits    = 15;
+        private const int    TurnDigits    = 15;
         private const double RadTurn       = Pi2;            // 6.283185307179586476925286766559d
         private const double RadTurnNeg    = Pi2 * -1d;      // -6.283185307179586476925286766559d
-        private const double RadDigits     = 15;
+        private const int    RadDigits     = 15;
         private const double MRadTurn      = Pi2 * 1000d;    // 6283.185307179586476925286766559d
         private const double MRadTurnNeg   = MRadTurn * -1d; // -6283.185307179586476925286766559d
+        private const int    MRadDigits    = 12;
         private const double PiTurn        =  2.0d;
         private const double PiTurnNeg     = -2.0d;
+        private const int    PIDigits      = 15;
         private const double DegTurn       =  360.0d;
         private const double DegTurnNeg    = -360.0d;
+        private const int    DegDigits     = 13;
         private const double DegMinTurn    = DegTurn * 60.0d;     //  21600.0d
         private const double DegMinTurnNeg = DegTurn * -60.0d;    // -21600.0d
+        private const int    DegMinDigits  = 11;
         private const double DegSecTurn    = DegMinTurn * 60.0d;  //  1296000.0d
         private const double DegSecTurnNeg = DegMinTurn * -60.0d; // -1296000.0d
+        private const int    DegSecDigits = 9;
         private const double GradTurn       =  400.0d;
         private const double GradTurnNeg    = -400.0d;
         private const double GradMinTurn    =  40000.0d;   // Grad *  100.0d
