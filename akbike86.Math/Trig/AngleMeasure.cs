@@ -92,6 +92,15 @@ namespace akbike86.Math.Trig
         /// <inheritdoc cref="arcsec" />
         second = arcsecond,
         /// <summary>
+        /// One thousandth of an <see cref="arcsecond">arc second</see>.<br/>
+        /// See <i><u><seealso cref="arcsecond"/></u></i>: <inheritdoc cref="arcsecond"/>
+        /// </summary>
+        milliarcsecond = 0b00011001,
+        /// <summary>
+        /// Short name/symbol of <see cref="milliarcsecond">milliarcsecond</see>. <inheritdoc cref="milliarcsecond"/>
+        /// </summary>
+        mas = milliarcsecond,
+        /// <summary>
         /// Short name/symbol of <see cref="gradian">gradian</see>. <inheritdoc cref="gradian"/>
         /// </summary>
         grad = 0b00000010,
