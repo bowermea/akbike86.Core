@@ -107,6 +107,12 @@ namespace akbike86.Math.Trig
 
         public double Cos => throw new NotImplementedException();
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SinCos(ref double sin, ref double cos)
+        {
+            (sin,cos) = double.SinCos(_angle);
+        }
+
         public double Tan => throw new NotImplementedException();
 
         public double ArcSin => throw new NotImplementedException();

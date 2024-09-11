@@ -29,7 +29,6 @@ namespace akbike86.Math
             _I = I;
             _La = La;
             _Lp = Lp;
-            akbike86.Math.Constants.OrbitalData.
         }
     }
 }

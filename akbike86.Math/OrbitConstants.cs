@@ -141,7 +141,7 @@ namespace akbike86.Math.Astro
         */
         public const double GM_sun = 1.32712440018e20;
         public const double GM_sol = 1.32712440042e20;
-        public const double GM_sol = 1.32712442076e20;
+        //public const double GM_sol = 1.32712442076e20;
         public const double GM_earth = 3.986004418e14;
         public const double GM_moon = 4.9048695e12;
         public const double GM_jupiter = 1.26686534e17;
