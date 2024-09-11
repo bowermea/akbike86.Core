@@ -18,6 +18,7 @@ namespace akbike86.Math.Trig
     /// <list type="bullet">
     ///   <item><seealso cref="arcminute"/> (<see cref="arcmin">arcmin</see>/<see cref="minute">minute</see>/<see cref="min">min</see>)</item>
     ///   <item><seealso cref="arcsecond"/> (<see cref="arcsec">arcsec</see>/<see cref="second">second</see>/<see cref="sec">sec</see>)</item>
+    ///   <item><seealso cref="milliarcsecond"/> (<see cref="mas">mas</see>)</item>
     /// </list></item>
     /// <item><seealso cref="gradian"/> (<see cref="gon">gon</see>/<see cref="grad">grad</see>)
     /// <list type="bullet">

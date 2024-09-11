@@ -48,19 +48,21 @@ namespace akbike86.Math.Trig
                     case AngleMeasure.pi:
                         return Reduce(angle, PiTurn, PiTurnNeg).Round(PIDigits);
                     case AngleMeasure.deg:
-                        return Reduce(angle, DegTurn, DegTurnNeg).Round(13);
+                        return Reduce(angle, DegTurn, DegTurnNeg).Round(DegDigits);
                     case AngleMeasure.arcminute:
-                        return Reduce(angle, DegMinTurn, DegMinTurnNeg).Round(11);
+                        return Reduce(angle, DegMinTurn, DegMinTurnNeg).Round(DegMinDigits);
                     case AngleMeasure.arcsecond:
-                        return Reduce(angle, DegSecTurn, DegSecTurnNeg).Round(9);
+                        return Reduce(angle, DegSecTurn, DegSecTurnNeg).Round(DegSecDigits);
+                    case AngleMeasure.milliarcsecond:
+                        return Reduce(angle, DegMasTurn, DegMasTurnNeg).Round(DegMasDigits);
                     case AngleMeasure.grad:
-                        return Reduce(angle, GradTurn, GradTurnNeg).Round(13);
+                        return Reduce(angle, GradTurn, GradTurnNeg).Round(GradDigits);
                     case AngleMeasure.centminute:
-                        return Reduce(angle, GradMinTurn, GradMinTurnNeg).Round(11);
+                        return Reduce(angle, GradMinTurn, GradMinTurnNeg).Round(GradMinDigits);
                     case AngleMeasure.centsecond:
-                        return Reduce(angle, GradSecTurn, GradSecTurnNeg).Round(9);
+                        return Reduce(angle, GradSecTurn, GradSecTurnNeg).Round(GradSecDigits);
                     case AngleMeasure.sextant:
-                        return Reduce(angle, SextantTurn, SextantTurnNeg).Round(15);
+                        return Reduce(angle, SextantTurn, SextantTurnNeg).Round(TurnDigits);
                 }
                 throw new ArgumentOutOfRangeException(nameof(type), type, $"Cannot reduce angle for invalid angle type.");
             }
@@ -261,10 +263,10 @@ namespace akbike86.Math.Trig
         private const double RadToGradSec  = RadToGradMin * 100.0d; // 636619.77236758134307553505349006d
 
         private const int    TurnDigits    = 15;
-        private const double RadTurn       = Pi2;            // 6.283185307179586476925286766559d
+        private const double RadTurn       = Pi2;            //  6.283185307179586476925286766559d
         private const double RadTurnNeg    = Pi2 * -1d;      // -6.283185307179586476925286766559d
         private const int    RadDigits     = 15;
-        private const double MRadTurn      = Pi2 * 1000d;    // 6283.185307179586476925286766559d
+        private const double MRadTurn      = Pi2 * 1000d;    //  6283.185307179586476925286766559d
         private const double MRadTurnNeg   = MRadTurn * -1d; // -6283.185307179586476925286766559d
         private const int    MRadDigits    = 12;
         private const double PiTurn        =  2.0d;
@@ -273,19 +275,25 @@ namespace akbike86.Math.Trig
         private const double DegTurn       =  360.0d;
         private const double DegTurnNeg    = -360.0d;
         private const int    DegDigits     = 13;
-        private const double DegMinTurn    = DegTurn * 60.0d;     //  21600.0d
-        private const double DegMinTurnNeg = DegTurn * -60.0d;    // -21600.0d
+        private const double DegMinTurn    =  21600.0d;    // DegTurn *  60.0d
+        private const double DegMinTurnNeg = -21600.0d;    // DegTurn * -60.0d
         private const int    DegMinDigits  = 11;
-        private const double DegSecTurn    = DegMinTurn * 60.0d;  //  1296000.0d
-        private const double DegSecTurnNeg = DegMinTurn * -60.0d; // -1296000.0d
-        private const int    DegSecDigits = 9;
-        private const double GradTurn       =  400.0d;
-        private const double GradTurnNeg    = -400.0d;
-        private const double GradMinTurn    =  40000.0d;   // Grad *  100.0d
-        private const double GradMinTurnNeg = -40000.0d;   // Grad * -100.0d
-        private const double GradSecTurn    =  4000000.0d; // GradMin *  100.0d
-        private const double GradSecTurnNeg = -4000000.0d; // GradMin * -100.0d
-        private const double SextantTurn    =  6.0d;
-        private const double SextantTurnNeg = -6.0d;
+        private const double DegSecTurn    =  1296000.0d; // DegMinTurn *  60.0d
+        private const double DegSecTurnNeg = -1296000.0d; // DegMinTurn * -60.0d
+        private const int    DegSecDigits  = 9;
+        private const double DegMasTurn    =  1296000000.0d; // DegSecTurn *  1000.0d
+        private const double DegMasTurnNeg = -1296000000.0d; // DegSecTurn * -1000.0d
+        private const int    DegMasDigits  = 6;
+        private const double GradTurn      =  400.0d;
+        private const double GradTurnNeg   = -400.0d;
+        private const int    GradDigits    = 13;
+        private const double GradMinTurn   =  40000.0d;   // Grad *  100.0d
+        private const double GradMinTurnNeg= -40000.0d;   // Grad * -100.0d
+        private const int    GradMinDigits = 11;
+        private const double GradSecTurn   =  4000000.0d; // GradMin *  100.0d
+        private const double GradSecTurnNeg= -4000000.0d; // GradMin * -100.0d
+        private const int    GradSecDigits = 9;
+        private const double SextantTurn   =  6.0d;
+        private const double SextantTurnNeg= -6.0d;
     }
 }
