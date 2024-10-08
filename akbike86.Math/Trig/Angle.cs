@@ -26,9 +26,9 @@ namespace akbike86.Math.Trig
         public double Degrees { get; }
         public double Radians { get; }
         public double Gradians { get; }
-        public (ushort deg, double min) DegMin { get; }
-        public (ushort deg, byte min, double sec) DegMinSec { get; }
-        public (ushort deg, byte min, byte sec, uint nano) DegMinSecNano { get; }
+        public (ushort deg, double min) DegMins { get; }
+        public (ushort deg, byte min, double sec) DegMinSecs { get; }
+        public (ushort deg, byte min, byte sec, uint nano) DegMinSecNanos { get; }
         public TSelf Add(double angle, AngleMeasure type);
         public TSelf Diff(double angle, AngleMeasure type);
         public double AddDegree { set; }
@@ -91,13 +91,13 @@ namespace akbike86.Math.Trig
             init { _angle = GradToRad; }
         }
 
-        public double Gradians => throw new NotImplementedException();
+        //public double Gradians => throw new NotImplementedException();
 
-        public (ushort deg, double min) DegMin => throw new NotImplementedException();
+        public (ushort deg, double min) DegMins => throw new NotImplementedException();
 
-        public (ushort deg, byte min, double sec) DegMinSec => throw new NotImplementedException();
+        public (ushort deg, byte min, double sec) DegMinSecs => throw new NotImplementedException();
 
-        public (ushort deg, byte min, byte sec, uint nano) DegMinSecNano => throw new NotImplementedException();
+        public (ushort deg, byte min, byte sec, uint nano) DegMinSecNanos => throw new NotImplementedException();
 
         public double AddDegree { set => throw new NotImplementedException(); }
         public double AddRadian { set => throw new NotImplementedException(); }

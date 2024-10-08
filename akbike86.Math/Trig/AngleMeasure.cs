@@ -16,15 +16,14 @@ namespace akbike86.Math.Trig
     /// </list></item>
     /// <item><seealso cref="degree"/> (<see cref="deg">deg</see>)
     /// <list type="bullet">
-    ///   <item><seealso cref="arcminute"/> (<see cref="arcmin">arcmin</see>/<see cref="minute">minute</see>/<see cref="min">min</see>)</item>
-    ///   <item><seealso cref="arcsecond"/> (<see cref="arcsec">arcsec</see>/<see cref="second">second</see>/<see cref="sec">sec</see>)</item>
-    ///   <item><seealso cref="milliarcsecond"/> (<see cref="mas">mas</see>)</item>
+    ///   <item><seealso cref="arcminute"/> (<see cref="arcmin">arcmin</see>/<see cref="minute">minute</see>/<see cref="min">min</see>)
+    ///   <list type="bullet"><item><seealso cref="arcsecond"/> (<see cref="arcsec">arcsec</see>/<see cref="second">second</see>/<see cref="sec">sec</see>)</item>
+    ///     <list type="bullet"><item><seealso cref="milliarcsecond"/> (<see cref="mas">mas</see>)</item></list>
+    ///   </list></item>
     /// </list></item>
     /// <item><seealso cref="gradian"/> (<see cref="gon">gon</see>/<see cref="grad">grad</see>)
-    /// <list type="bullet">
-    ///   <item><seealso cref="centminute"/> (<see cref="centmin">centmin</see>/<see cref="cgon">cgon</see>)</item>
-    ///   <item><seealso cref="centsecond"/> (<see cref="centsec">centsec</see>/<see cref="ccgon">ccgon</see>)</item>
-    ///   <item></item>
+    /// <list type="bullet"><item><seealso cref="centminute"/> (<see cref="centmin">centmin</see>/<see cref="cgon">cgon</see>)
+    ///   <list type="bullet"><item><seealso cref="centsecond"/> (<see cref="centsec">centsec</see>/<see cref="ccgon">ccgon</see>)</item></list></item>
     /// </list></item>
     /// <item><seealso cref="turn"/></item>
     /// <item><seealso cref="sextant"/></item>
@@ -143,5 +142,36 @@ namespace akbike86.Math.Trig
         /// Unit of measure of an angle defined as one sixth (1/6) of a <see cref="turn">turn</see>, so 1 sextant = 60°.
         /// </summary>
         sextant = 0b00000100
+    }
+
+    public static class AngleMeasureExt { 
+        public static double Turn (this AngleMeasure angleMeasure)
+        {
+            switch (angleMeasure)
+            {
+                case AngleMeasure.turn: return 1d;
+                case AngleMeasure.rad: return Angle.Rad.Turn;
+                case AngleMeasure.mrad:
+                    break;
+                case AngleMeasure.pi:
+                    break;
+                case AngleMeasure.deg:
+                    break;
+                case AngleMeasure.arcminute:
+                    break;
+                case AngleMeasure.arcsecond:
+                    break;
+                case AngleMeasure.milliarcsecond:
+                    break;
+                case AngleMeasure.grad:
+                    break;
+                case AngleMeasure.centminute:
+                    break;
+                case AngleMeasure.centsecond:
+                    break;
+                case AngleMeasure.sextant:
+                    break;
+            }
+        }
     }
 }
